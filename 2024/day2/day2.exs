@@ -1,5 +1,8 @@
 defmodule Day02 do
+  # run case statement that parses the list
   def part1(input) do
+    all = parse(input)
+    all
   end
 
   # def part2(input) do
@@ -8,13 +11,11 @@ defmodule Day02 do
   defp parse(input) do
     input
     |> Enum.map(fn line ->
-      {first, line} = Integer.parse(line)
-      line = String.trim(line)
-      {second, ""} = Integer.parse(line)
-      {first, second}
+      String.split(line)
+      |> Enum.map(&String.to_integer/1)
     end)
   end
 end
 
-# Day02.part1(File.stream!("", :line))
-# |> IO.inspect()
+Day02.part1(File.stream!("day2.test", :line))
+|> IO.inspect()
