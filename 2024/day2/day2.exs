@@ -28,6 +28,38 @@ defmodule Day02 do
     count
   end
 
+  def decreasing_adj2?(all) do
+    result =
+      Enum.map(all, fn list ->
+        Enum.chunk_every(list, 2, 1, :discard)
+      end)
+
+    final =
+      Enum.map(result, fn list ->
+        IO.inspect(list)
+
+        Enum.map(list, fn [a, b] ->
+          cond do
+            a < b and abs(a - b) >= 1 and abs(a - b) <= 3 -> true
+            a > b and abs(a - b) >= 1 and abs(a - b) <= 3 -> true
+            true -> false
+          end
+        end)
+      end)
+
+    final
+  end
+
+  def part2(input) do
+    all = parse(input)
+
+    result = decreasing_adj2?(all)
+
+    # count = Enum.count(result, &(&1 == true))
+    # count
+    result
+  end
+
   defp parse(input) do
     input
     |> Enum.map(fn line ->
@@ -37,5 +69,10 @@ defmodule Day02 do
   end
 end
 
-Day02.part1(File.stream!("day2.input", :line))
+# part 1
+# Day02.part1(File.stream!("day2.test", :line))
+# |> IO.inspect()
+
+# part 2
+Day02.part2(File.stream!("day2.test", :line))
 |> IO.inspect()
